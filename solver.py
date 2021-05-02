@@ -39,6 +39,7 @@ def solveSmall(G, s, t):
     Gp = G.copy()
     c = []
     k = []
+
     n = RemoveOneNode(Gp, s, t)
     # print(n)
     if n is not None:
@@ -55,9 +56,34 @@ def solveSmall(G, s, t):
         Gp.remove_edge(e[0], e[1])
         i += 1
     return c, k
+
 def solveMedium(G, s, t):
     Gp = G.copy()
-    pass
+    Gp = G.copy()
+    c = []
+    k = []
+    
+    i = 0
+    while i < 20:
+        e = EdgeToRemove(Gp, s, t)
+        # print(e)
+        if e is None:
+            break
+        k.append((e[0], e[1]))
+        # print(Gp.has_edge(e[0], e[1]))
+        Gp.remove_edge(e[0], e[1])
+        i += 1
+    i = 0
+    while i < 3:
+        n = RemoveOneNode(Gp, s, t)
+        # print(n)
+        if n is None:
+            break
+        Gp.remove_node(n)
+        c.append(n)
+            
+        i += 1
+    return c, k
 def solveLarge(G, s, t):
     Gp = G.copy()
     i = 0
@@ -122,7 +148,7 @@ if __name__ == '__main__':
     c, k = solve(G)
     assert is_valid_solution(G, c, k)
     print("Shortest Path Difference: {}".format(calculate_score(G, c, k)))
-    write_output_file(G, c, k, 'outputs' + path[6:])
+    write_output_file(G, c, k, 'outputs' + path[6:-2] + 'out')
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
