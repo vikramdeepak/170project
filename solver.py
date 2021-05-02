@@ -34,7 +34,7 @@ def solve(G):
 
     # Large can delete 100 edges and 5 nodes
 
-def oldsolveSmall(G, s, t):
+def solveSmall(G, s, t):
     # Remove node and delete 15 edges
     
     # location 0 corresponds to best to remove at first iteration
@@ -186,25 +186,25 @@ def RemoveOneNode(G, s, t):
 
 # Usage: python3 solver.py test.in
 
-# if __name__ == '__main__':
-#     assert len(sys.argv) == 2
-#     path = sys.argv[1]
-#     print(path)
-#     G = read_input_file(path)
-#     c, k = solve(G)
-#     assert is_valid_solution(G, c, k)
-#     print("Shortest Path Difference: {}".format(calculate_score(G, c, k)))
-#     write_output_file(G, c, k, 'outputs' + path[6:-2] + 'out')
+if __name__ == '__main__':
+    assert len(sys.argv) == 2
+    path = sys.argv[1]
+    print(path)
+    G = read_input_file(path)
+    c, k = solve(G)
+    assert is_valid_solution(G, c, k)
+    print("Shortest Path Difference: {}".format(calculate_score(G, c, k)))
+    write_output_file(G, c, k, 'outputs' + path[6:-2] + 'out')
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
-if __name__ == '__main__':
-    inputs = glob.glob('inputs/medium/*')
-    for input_path in inputs:
-        print(input_path)
-        output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
-        G = read_input_file(input_path)
-        c, k = solve(G)
-        assert is_valid_solution(G, c, k)
-        distance = calculate_score(G, c, k)
-        write_output_file(G, c, k, output_path)
+# if __name__ == '__main__':
+#     inputs = glob.glob('inputs/medium/*')
+#     for input_path in inputs:
+#         print(input_path)
+#         output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
+#         G = read_input_file(input_path)
+#         c, k = solve(G)
+#         assert is_valid_solution(G, c, k)
+#         distance = calculate_score(G, c, k)
+#         write_output_file(G, c, k, output_path)
