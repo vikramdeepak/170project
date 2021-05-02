@@ -36,16 +36,63 @@ def solve(G):
 
 def oldsolveSmall(G, s, t):
     # Remove node and delete 15 edges
+    
+    # location 0 corresponds to best to remove at first iteration
+    bestEdgeToRemove = []
+    newGraph = G.copy()
+    bestC, bestK = smallHelper(newGraph, s, t, 15, [])
+    maxScore = calculate_score(G, bestC, bestK)
+    # print(maxScore)
+    
+    for i in range(1, 16):
+        newGraph = G.copy()
+        k = []
+        for j in range(len(bestEdgeToRemove)):
+            e = bestEdgeToRemove[j]
+            newGraph.remove_edge(e[0], e[1])
+            k.append((e[0], e[1]))
+        e = EdgeToRemove(newGraph, s, t)
+        
+        if e is None:
+            break
+        bestEdgeToRemove.append(e)
+        k.append((e[0], e[1]))
+        c, k = smallHelper(newGraph, s, t, 15 - i, k)
+        score = calculate_score(G, c, k)
+        if score > maxScore:
+            bestC, bestK = c, k
+    return bestC, bestK
+        # print(Gp.has_edge(e[0], e[1]))
+        
+        
+
+
+    # n = RemoveOneNode(Gp, s, t)
+    # # print(n)
+    # if n is not None:
+    #     Gp.remove_node(n)
+    #     c.append(n)
+    # i = 0
+    # while i < 15:
+    #     e = EdgeToRemove(Gp, s, t)
+    #     # print(e)
+    #     if e is None:
+    #         break
+    #     k.append((e[0], e[1]))
+    #     # print(Gp.has_edge(e[0], e[1]))
+    #     Gp.remove_edge(e[0], e[1])
+    #     i += 1
+    # return c, k
+
+def smallHelper(G, s, t, edgesLeft, k):
     Gp = G.copy()
     c = []
-    k = []
     n = RemoveOneNode(Gp, s, t)
-    # print(n)
     if n is not None:
         Gp.remove_node(n)
         c.append(n)
     i = 0
-    while i < 15:
+    while i < edgesLeft:
         e = EdgeToRemove(Gp, s, t)
         # print(e)
         if e is None:
@@ -55,9 +102,34 @@ def oldsolveSmall(G, s, t):
         Gp.remove_edge(e[0], e[1])
         i += 1
     return c, k
+
+
 def solveMedium(G, s, t):
     Gp = G.copy()
-    pass
+    c = []
+    k = []
+    
+    i = 0
+    while i < 20:
+        e = EdgeToRemove(Gp, s, t)
+        # print(e)
+        if e is None:
+            break
+        k.append((e[0], e[1]))
+        # print(Gp.has_edge(e[0], e[1]))
+        Gp.remove_edge(e[0], e[1])
+        i += 1
+    i = 0
+    while i < 3:
+        n = RemoveOneNode(Gp, s, t)
+        # print(n)
+        if n is None:
+            break
+        Gp.remove_node(n)
+        c.append(n)
+            
+        i += 1
+    return c, k
 def solveLarge(G, s, t):
     Gp = G.copy()
     i = 0
