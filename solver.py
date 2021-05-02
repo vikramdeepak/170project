@@ -14,17 +14,98 @@ def solve(G):
         c: list of cities to remove
         k: list of edges to remove
     """
-    print(G.edges)
+    l = len(G.nodes)
     print(G.nodes)
-    return [], []
+    
+    s = (list(G.nodes))[0]
+    t = (list(G.nodes))[-1]
+
+    if l <= 30:
+        return solveSmall(G, s, t)
+    elif l <= 50:
+        return solveMedium(G, s, t)
+    elif l <= 100:
+        return solveLarge(G, s, t)
+    
 
     # Small can delete 15 edges and 1 node
 
     # Medium can delete 50 edges and 3 nodes
 
     # Large can delete 100 edges and 5 nodes
-    
 
+def solveSmall(G, s, t):
+    # Remove node and delete 15 edges
+    Gp = G.copy()
+    c = []
+    k = []
+    n = RemoveOneNode(Gp, s, t)
+    Gp.remove_node(n)
+    c.append(n)
+    i = 0
+    while i < 15:
+        e = EdgeToRemove(Gp, s, t)
+        if e is None:
+            break
+        k.append((e[0], e[1]))
+        # print(Gp.has_edge(e[0], e[1]))
+        Gp.remove_edge(e[0], e[1])
+        i += 1
+    return c, k
+def solveMedium(G, s, t):
+    Gp = G.copy()
+    pass
+def solveLarge(G, s, t):
+    Gp = G.copy()
+    i = 0
+    while i < 5:
+        n = RemoveOneNode(G, s, t)
+        print(n)
+        G.remove_node(n)
+        i += 1
+    i = 0
+    while i < 15:
+        e = EdgeToRemove(G, s, t)
+        if e is None:
+            break
+        print(e)
+        G.remove_edge(e[0], e[1])
+        i += 1
+
+def EdgeToRemove(G, s, t):
+    maxLenPath = -1
+    edgeToRemove = None
+    for edge in G.edges():
+        copy = G.copy()
+        copy.remove_edge(edge[0], edge[1])
+        try:
+            length, path = nx.single_source_dijkstra(copy, s, t)
+        except:
+            return None
+
+        if length > maxLenPath:
+            edgeToRemove = edge
+            maxLenPath = length
+        
+    return edgeToRemove
+
+def RemoveOneNode(G, s, t):
+    maxLenPath = -1
+    nodeToRemove = None
+    for node in G.nodes():
+        if node is not s and node is not t:
+            
+            copy = G.copy()
+            copy.remove_node(node)
+            try:
+                length, path = nx.single_source_dijkstra(copy, s, t)
+            except:
+                return None
+            if length > maxLenPath:
+                nodeToRemove = node
+                maxLenPath = length
+        
+    return nodeToRemove
 
 # Here's an example of how to run your solver.
 
