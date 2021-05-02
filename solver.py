@@ -40,8 +40,9 @@ def solveSmall(G, s, t):
     c = []
     k = []
     n = RemoveOneNode(Gp, s, t)
-    Gp.remove_node(n)
-    c.append(n)
+    if n is not None:
+        Gp.remove_node(n)
+        c.append(n)
     i = 0
     while i < 15:
         e = EdgeToRemove(Gp, s, t)
