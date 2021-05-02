@@ -130,21 +130,29 @@ def solveMedium(G, s, t):
             
         i += 1
     return c, k
+
 def solveLarge(G, s, t):
+    c = []
+    k = []
     Gp = G.copy()
-    i = 0
-    while i < 5:
-        n = RemoveOneNode(G, s, t)
-        print(n)
-        G.remove_node(n)
-        i += 1
+    
     i = 0
     while i < 15:
-        e = EdgeToRemove(G, s, t)
+        e = EdgeToRemove(Gp, s, t)
         if e is None:
             break
         print(e)
-        G.remove_edge(e[0], e[1])
+        k.append(e)
+        Gp.remove_edge(e[0], e[1])
+        i += 1
+    i = 0
+    while i < 5:
+        n = RemoveOneNode(Gp, s, t)
+        if n is None:
+            break
+        print(n)
+        c.append(n)
+        Gp.remove_node(n)
         i += 1
 
 def EdgeToRemove(G, s, t):
