@@ -160,4 +160,4 @@ def write_output_file(G, c, k, path):
             fo.write(str(road[0]) + " " + str(road[1]) + "\n")
         fo.close()
 
-print(read_input_file("100.in"))
+

@@ -14,7 +14,15 @@ def solve(G):
         c: list of cities to remove
         k: list of edges to remove
     """
-    pass
+    
+    return [], []
+
+    # Small can delete 15 edges and 1 node
+
+    # Medium can delete 50 edges and 3 nodes
+
+    # Large can delete 100 edges and 5 nodes
+    
 
 
 # Here's an example of how to run your solver.
@@ -32,12 +40,12 @@ def solve(G):
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
-# if __name__ == '__main__':
-#     inputs = glob.glob('inputs/*')
-#     for input_path in inputs:
-#         output_path = 'outputs/' + basename(normpath(input_path))[:-3] + '.out'
-#         G = read_input_file(input_path)
-#         c, k = solve(G)
-#         assert is_valid_solution(G, c, k)
-#         distance = calculate_score(G, c, k)
-#         write_output_file(G, c, k, output_path)
+if __name__ == '__main__':
+    inputs = glob.glob('inputs/small/*')
+    for input_path in inputs:
+        output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
+        G = read_input_file(input_path)
+        c, k = solve(G)
+        assert is_valid_solution(G, c, k)
+        distance = calculate_score(G, c, k)
+        write_output_file(G, c, k, output_path)
