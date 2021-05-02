@@ -15,10 +15,10 @@ def solve(G):
         k: list of edges to remove
     """
     l = len(G.nodes)
-    print(G.nodes)
+    # print(G.nodes)
     
-    s = (list(G.nodes))[0]
-    t = (list(G.nodes))[-1]
+    s = min(G.nodes)
+    t = max(G.nodes)
 
     if l <= 30:
         return solveSmall(G, s, t)
@@ -40,12 +40,14 @@ def solveSmall(G, s, t):
     c = []
     k = []
     n = RemoveOneNode(Gp, s, t)
+    # print(n)
     if n is not None:
         Gp.remove_node(n)
         c.append(n)
     i = 0
     while i < 15:
         e = EdgeToRemove(Gp, s, t)
+        # print(e)
         if e is None:
             break
         k.append((e[0], e[1]))
@@ -112,25 +114,25 @@ def RemoveOneNode(G, s, t):
 
 # Usage: python3 solver.py test.in
 
-# if __name__ == '__main__':
-#     assert len(sys.argv) == 2
-#     path = sys.argv[1]
-#     print(path)
-#     G = read_input_file(path)
-#     c, k = solve(G)
-#     assert is_valid_solution(G, c, k)
-#     print("Shortest Path Difference: {}".format(calculate_score(G, c, k)))
-#     write_output_file(G, c, k, 'outputs' + path[6:])
+if __name__ == '__main__':
+    assert len(sys.argv) == 2
+    path = sys.argv[1]
+    print(path)
+    G = read_input_file(path)
+    c, k = solve(G)
+    assert is_valid_solution(G, c, k)
+    print("Shortest Path Difference: {}".format(calculate_score(G, c, k)))
+    write_output_file(G, c, k, 'outputs' + path[6:])
 
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
-if __name__ == '__main__':
-    inputs = glob.glob('inputs/small/*')
-    for input_path in inputs:
-        print(input_path)
-        output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
-        G = read_input_file(input_path)
-        c, k = solve(G)
-        assert is_valid_solution(G, c, k)
-        distance = calculate_score(G, c, k)
-        write_output_file(G, c, k, output_path)
+# if __name__ == '__main__':
+#     inputs = glob.glob('inputs/small/*')
+#     for input_path in inputs:
+#         print(input_path)
+#         output_path = 'outputs/small/' + basename(normpath(input_path))[:-3] + '.out'
+#         G = read_input_file(input_path)
+#         c, k = solve(G)
+#         assert is_valid_solution(G, c, k)
+#         distance = calculate_score(G, c, k)
+#         write_output_file(G, c, k, output_path)
