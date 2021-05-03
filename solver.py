@@ -141,7 +141,7 @@ def solveLarge(G, s, t):
         e = EdgeToRemove(Gp, s, t)
         if e is None:
             break
-        print(e)
+        #print(e)
         k.append(e)
         Gp.remove_edge(e[0], e[1])
         i += 1
@@ -150,7 +150,7 @@ def solveLarge(G, s, t):
         n = RemoveOneNode(Gp, s, t)
         if n is None:
             break
-        print(n)
+        #print(n)
         c.append(n)
         Gp.remove_node(n)
         i += 1
@@ -207,10 +207,10 @@ if __name__ == '__main__':
 
 # For testing a folder of inputs to create a folder of outputs, you can use glob (need to import it)
 # if __name__ == '__main__':
-#     inputs = glob.glob('inputs/medium/*')
+#     inputs = glob.glob('inputs/large/*')
 #     for input_path in inputs:
 #         print(input_path)
-#         output_path = 'outputs/medium/' + basename(normpath(input_path))[:-3] + '.out'
+#         output_path = 'outputs/large/' + basename(normpath(input_path))[:-3] + '.out'
 #         G = read_input_file(input_path)
 #         c, k = solve(G)
 #         assert is_valid_solution(G, c, k)
