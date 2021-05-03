@@ -137,7 +137,7 @@ def solveLarge(G, s, t):
     Gp = G.copy()
     
     i = 0
-    while i < 15:
+    while i < 5:
         e = EdgeToRemove(Gp, s, t)
         if e is None:
             break
@@ -154,6 +154,7 @@ def solveLarge(G, s, t):
         c.append(n)
         Gp.remove_node(n)
         i += 1
+    return c, k
 
 def EdgeToRemove(G, s, t):
     maxLenPath = -1
